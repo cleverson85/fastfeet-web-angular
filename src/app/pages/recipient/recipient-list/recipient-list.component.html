@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="cad">
+    <h1>Destinatários</h1>
+    <a class="btn btn-primary" role="button" routerLink="/recipientedit">Cadastrar</a>
+  </div>
+  <div  *ngIf="recipient$ | async as recipients">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let recipient of recipients'>
+          <td>
+            <span>#{{ recipient.id }}</span>
+          </td>
+          <td>
+            <span>{{ recipient.nome }}</span>
+          </td>
+          <td>
+            <span>{{ recipient.rua }}, {{ recipient.numero }} - {{ recipient.cep }} {{ recipient.cidade }}/{{ recipient.estado }}  </span>
+          </td>
+          <td>
+            <app-menu-list [route]=""></app-menu-list>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+      <app-pagination [list]="recipients" (pageChange)="onPageChange($event)"></app-pagination>
+   </div>
+  </div>
+</div>

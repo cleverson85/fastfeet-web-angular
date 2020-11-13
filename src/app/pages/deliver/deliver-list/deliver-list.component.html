@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="cad">
+    <h1>Entregadores</h1>
+    <a class="btn btn-primary" role="button" routerLink="/deliveredit">Cadastrar</a>
+  </div>
+  <div  *ngIf="list?.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th></th>
+          <th>Nome</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of list'>
+          <td>
+            <span>#{{ item.id }}</span>
+          </td>
+          <td>
+            <span><img alt="Entregador" src='https://api.adorable.io/avatars/149/{{ item.id }}.png'  /></span>
+          </td>
+          <td>
+            <span>{{ item.name }}</span>
+          </td>
+          <td>
+            <span>{{ item.email }}</span>
+          </td>
+          <td>
+            <app-menu-list></app-menu-list>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+       <app-pagination [list]="delivers" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </div>
+</div>

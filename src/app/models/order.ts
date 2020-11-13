@@ -1,9 +1,9 @@
 export interface Order {
-  id: number,
-  product: string,
-  start_date: Date,
-  end_date: Date,
-  canceled_at: Date,
+  id: number;
+  product: string;
+  start_date: Date;
+  end_date: Date;
+  canceled_at: Date;
   recipient: {
     nome: string,
     rua: string,
@@ -11,7 +11,7 @@ export interface Order {
     cidade: string,
     estado: string,
     cep: number
-  },
+  };
   deliveryMan: {
     name: string,
     avatar: {
@@ -19,5 +19,5 @@ export interface Order {
       id: number,
       path: string
     }
-  }
+  };
 }

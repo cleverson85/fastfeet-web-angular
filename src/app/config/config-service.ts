@@ -1,5 +1,6 @@
-class ConfigService {
-  baseUrl: string = 'http://localhost:5555/';
-}
+const ConfigService = {
+  email: 'admin@fastfeet.com',
+  password: '123456'
+};
 
-export default new ConfigService;
+export default ConfigService;

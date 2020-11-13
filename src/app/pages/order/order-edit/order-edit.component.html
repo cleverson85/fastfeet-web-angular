@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="cad">
+    <h3>Cadastrar Pedidos</h3>
+    <div>
+      <button type="button" class="btn btn-danger" routerLink="/order">Cancelar</button>
+      <button type="button" class="btn btn-primary" (click)="store()">Salvar</button>
+    </div>
+  </div>
+  <form>
+    <div class="card" style="width: 50%;">
+      <div class="card-body">
+          <div class="form-group">
+            <label for="destinatario">Destinatário</label>
+            <select id="destinatario" class="form-control" [(ngModel)]="order.recipient_id" name="destinatario">
+              <option *ngFor="let item of recipients" value="{{item.id}}">{{ item.nome }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="entregador">Entregador</label>
+            <select id="entregador" class="form-control" [(ngModel)]="order.deliveryman_id" name="entregador">
+              <option *ngFor="let item of deliverymen" value="{{item.id}}">{{ item.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="produto">Produto</label>
+            <input type="text" id="produto" class="form-control" [(ngModel)]="order.product" name="produto" />
+          </div>
+      </div>
+    </div>
+  </form>
+</div>

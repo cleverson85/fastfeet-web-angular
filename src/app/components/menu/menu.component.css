@@ -1,0 +1,19 @@
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 100px;
+}
+
+p {
+  margin: 0;
+  color: #fff;
+  font: italic 30px Roboto-Regular, sans-serif;
+}
+
+.navbar-toggler {
+  margin-right: 10px;
+}
+
+li {
+  margin-left: 10px;
+}

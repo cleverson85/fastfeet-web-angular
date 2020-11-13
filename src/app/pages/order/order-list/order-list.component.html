@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="cad">
+    <h1>Pedidos</h1>
+    <a class="btn btn-primary" role="button" routerLink="/orderedit">Cadastrar</a>
+  </div>
+  <div  *ngIf="list?.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Destinatário</th>
+          <th>Produto</th>
+          <th></th>
+          <th>Entregador</th>
+          <th>Cidade</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let order of list'>
+          <td>
+            <span>#{{ order.id }}</span>
+          </td>
+          <td>
+            <span>{{ order.recipient.nome }}</span>
+          </td>
+          <td>
+            <span>{{ order.product }}</span>
+          </td>
+          <td>
+            <span><img alt="Entregador" src='https://api.adorable.io/avatars/149/{{ order.id }}.png'  /></span>
+          </td>
+          <td>
+            <span>
+              {{ order.deliveryMan.name }}
+            </span>
+          </td>
+          <td>
+            <span>{{ order.recipient.cidade }}</span>
+          </td>
+          <td>
+            <span>{{ order.recipient.estado }}</span>
+          </td>
+          <td>
+            <app-menu-list></app-menu-list>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+       <app-pagination [list]="orders" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </div>
+</div>

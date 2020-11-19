@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { ViewComponent } from 'src/app/components/view/view.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 import { Recipient } from '../../../models/recipient';
 import { Deliveryman } from '../../../models/deliveryman';
+import { RoutesApi } from './../../../shared/routesAPI.enum';
 
 import { OrderService } from '../../../services/order.service';
+import { RecipientService } from './../../../services/recipient.service';
+import { DeliverService } from './../../../services/deliver.service';
 
 interface Order {
   id: number;
   product: string;
-  recipient_id: number;
-  deliveryman_id: number;
+  recipient: {
+    id: number;
+  };
+  deliveryMan: {
+    id: number;
+  };
 }
 
 @Component({
@@ -20,43 +27,66 @@ interface Order {
   templateUrl: './order-edit.component.html',
   styleUrls: ['./order-edit.component.css']
 })
-export class OrderEditComponent extends ViewComponent<Order> implements OnInit {
+export class OrderEditComponent implements OnInit, OnDestroy {
+
   recipients: Recipient[];
   deliverymen: Deliveryman[];
   selectedRecipient: Recipient;
   selectedDeliveryman: Deliveryman;
   product: string;
-  order: Order = {
-    id: 0,
-    product: '',
-    recipient_id: 0,
-    deliveryman_id: 0
-  };
+  order: Order;
+  subscription = new Subscription();
 
-  constructor(private orderService: OrderService, private router: Router) {
-    super(orderService);
-    this.route = 'order';
-  }
+  constructor(private activatedRoute: ActivatedRoute,
+              private recipientService: RecipientService,
+              private deliverService: DeliverService,
+              private orderService: OrderService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getRecipients();
     this.getDeliveryMen();
+
+    this.activatedRoute.params.subscribe(async params => {
+      const { id } = params;
+
+      if (id) {
+        this.getOrderById(id);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getRecipients(): void {
-    this.orderService
+    this.subscription.add(this.recipientService
       .getRecipient()
-      .subscribe((recipient) => { this.recipients = recipient; });
+      .subscribe((recipient) => { this.recipients = recipient; })
+    );
   }
 
   getDeliveryMen(): void {
-    this.orderService
+    this.subscription.add(this.deliverService
       .getDeliveryMen()
-      .subscribe((deliveryman) => { this.deliverymen = deliveryman; });
+      .subscribe((deliveryman) => { this.deliverymen = deliveryman; })
+    );
   }
 
-  store(): void {
-    this.save(this.order)
-      .subscribe(() => this.router.navigate(['order']));
+  getOrderById(id: number): void {
+    this.subscription.add(this.orderService.getById<Order>(`${RoutesApi.Order}/${id}`)
+      .subscribe(
+        (order: Order) => {
+          if (order) {
+            this.order = order;
+          }
+        }
+      )
+    );
+  }
+
+  save(): void {
+    this.orderService.saveOrder<Order>(this.order).subscribe(() => this.router.navigate(['order']));
   }
 }

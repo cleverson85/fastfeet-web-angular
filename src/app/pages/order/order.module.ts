@@ -5,12 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { OrderRoutingModule } from './order-routing.module';
 import { MenuListModule } from '../../components/menu-list/menu-list.module';
 import { PaginationModule } from 'src/app/components/pagination/pagination.module';
+import { AvatarModule } from 'ngx-avatar';
 
 import { OrderEditComponent } from './order-edit/order-edit.component';
 import { OrderListComponent } from './order-list/order-list.component';
-import { MenuListComponent } from './../../components/menu-list/menu-list.component';
-
-import { OrderService } from '../../services/order.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +21,7 @@ import { OrderService } from '../../services/order.service';
     OrderRoutingModule,
     PaginationModule,
     MenuListModule,
-  ],
-  providers: [
-    OrderService
+    AvatarModule
   ]
 })
 export class OrderModule { }

@@ -5,8 +5,9 @@ import { DeliverEditComponent } from './deliver-edit/deliver-edit.component';
 import { DeliverListComponent } from './deliver-list/deliver-list.component';
 
 const routes: Routes = [
-  //{ path: '', component: DeliverListComponent },
-  { path: 'deliveredit', component: DeliverEditComponent },
+  { path: '', component: DeliverListComponent },
+  { path: 'deliver-edit', component: DeliverEditComponent },
+  { path: 'deliver-edit/:id', component: DeliverEditComponent }
 ];
 
 @NgModule({

@@ -2,10 +2,9 @@ import { Injectable  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { environment } from './../../environments/environment';
 
 import ConfigService from '../config/config-service';
-
-import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

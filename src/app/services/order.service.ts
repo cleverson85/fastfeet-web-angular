@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Deliveryman } from '../models/deliveryman';
-import { Recipient } from '../models/recipient';
+import { RoutesApi } from './../shared/routesAPI.enum';
+
 import ApiBase from './apiBase.service';
 
 @Injectable({
@@ -10,11 +10,7 @@ import ApiBase from './apiBase.service';
 })
 export class OrderService extends ApiBase {
 
-  getDeliveryMen(): Observable<Deliveryman[]> {
-    return this.get('deliveryman');
-  }
-
-  getRecipient(): Observable<Recipient[]> {
-    return this.get('recipient');
+  saveOrder<Order>(order: Order): Observable<Order> {
+    return this.save<Order>(order, RoutesApi.Order);
   }
 }

@@ -1,7 +1,7 @@
-import { Recipient } from '../../../models/recipient';
 import { Component, OnInit } from '@angular/core';
 
-import { ViewComponent } from '../../../components/view/view.component';
+import { Recipient } from './../../../models/recipient';
+
 import { RecipientService } from '../../../services/recipient.service';
 
 @Component({
@@ -9,12 +9,15 @@ import { RecipientService } from '../../../services/recipient.service';
   templateUrl: './recipient-edit.component.html',
   styleUrls: ['./recipient-edit.component.css']
 })
-export class RecipientEditComponent extends ViewComponent<Recipient> implements OnInit {
+export class RecipientEditComponent implements OnInit {
 
-  constructor(private recipientService: RecipientService) {
-    super(recipientService);
-  }
+  recipient: Recipient;
+
+  constructor(private recipientService: RecipientService) { }
 
   ngOnInit(): void { }
 
+  save(): void {
+
+  }
 }

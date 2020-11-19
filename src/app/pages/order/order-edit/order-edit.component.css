@@ -1,11 +1,3 @@
-label {
-  text-align: left;
-  margin-bottom: 5px;
-  font: 16px Roboto-Regular, sans-serif;
-  opacity: 1;
-  color: #444444;
-}
-
 input, select {
   height: 35px;
   width: 100%;

@@ -5,13 +5,14 @@ import { RecipientListComponent } from './recipient-list/recipient-list.componen
 import { RecipientEditComponent } from './recipient-edit/recipient-edit.component';
 
 const routes: Routes = [
-  { path: 'recipientedit', component: RecipientEditComponent },
-  { path: '', component: RecipientListComponent }
+  { path: '', component: RecipientListComponent },
+  { path: 'recipient-edit', component: RecipientEditComponent },
+  { path: 'recipient-edit/:id', component: RecipientEditComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forChild(routes)
   ],
   exports: [
     RouterModule

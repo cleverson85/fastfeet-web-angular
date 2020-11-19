@@ -14,14 +14,14 @@ export class DeliverListComponent implements OnInit {
   delivers: Deliveryman[] = [];
   list: Deliveryman[] = [];
 
-  constructor(private recipientService: DeliverService ) { }
+  constructor(private deliverService: DeliverService ) { }
 
   ngOnInit(): void {
     this.get();
   }
 
   get(): void {
-    this.recipientService.get<Deliveryman>('deliveryman').subscribe((deliver) => {
+    this.deliverService.get<Deliveryman>('deliveryman').subscribe((deliver) => {
       this.delivers = deliver;
       this.list = this.delivers.slice(0, 10);
     });

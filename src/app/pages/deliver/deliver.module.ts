@@ -9,11 +9,10 @@ import { PaginationModule } from 'src/app/components/pagination/pagination.modul
 import { DeliverEditComponent } from './deliver-edit/deliver-edit.component';
 import { DeliverListComponent } from './deliver-list/deliver-list.component';
 
-import { DeliverService } from '../../services/deliver.service';
-
 @NgModule({
   declarations: [
-    DeliverEditComponent, DeliverListComponent
+    DeliverEditComponent,
+    DeliverListComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +20,6 @@ import { DeliverService } from '../../services/deliver.service';
     DeliverRoutingModule,
     MenuListModule,
     PaginationModule,
-  ],
-  providers: [DeliverService],
+  ]
 })
 export class DeliverModule {}

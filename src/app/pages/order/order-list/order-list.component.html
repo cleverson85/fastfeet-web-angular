@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="cad">
     <h1>Pedidos</h1>
-    <a class="btn btn-primary" role="button" routerLink="/orderedit">Cadastrar</a>
+    <a class="btn btn-primary" role="button" routerLink="/order/order-edit">Cadastrar</a>
   </div>
-  <div  *ngIf="list?.length > 0">
+  <div  *ngIf="orders$ | async as orders">
     <table>
       <thead>
         <tr>
@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let order of list'>
+        <tr *ngFor='let order of orders'>
           <td>
             <span>#{{ order.id }}</span>
           </td>
@@ -28,7 +28,9 @@
             <span>{{ order.product }}</span>
           </td>
           <td>
-            <span><img alt="Entregador" src='https://api.adorable.io/avatars/149/{{ order.id }}.png'  /></span>
+            <span>
+              <ngx-avatar src="{{ order.deliveryMan.avatar.url }}" name="{{ order.deliveryMan.name }}" size="30" [round]="true"></ngx-avatar>
+            </span>
           </td>
           <td>
             <span>
@@ -42,7 +44,7 @@
             <span>{{ order.recipient.estado }}</span>
           </td>
           <td>
-            <app-menu-list></app-menu-list>
+            <app-menu-list [route]="'order/order-edit/' + order.id"></app-menu-list>
           </td>
         </tr>
       </tbody>

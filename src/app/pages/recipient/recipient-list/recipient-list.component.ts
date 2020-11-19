@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Recipient } from '../../../models/recipient';
+import { RoutesApi } from '../../../shared/routesAPI.enum';
+
 import { RecipientService } from '../../../services/recipient.service';
 
 @Component({
@@ -22,7 +24,7 @@ export class RecipientListComponent implements OnInit {
   }
 
   getRecipients(): void {
-    this.recipient$ = this.recipientService.get<Recipient>('recipient');
+    this.recipient$ = this.recipientService.get<Recipient>(RoutesApi.Recipient);
   }
 
   onPageChange(data) {

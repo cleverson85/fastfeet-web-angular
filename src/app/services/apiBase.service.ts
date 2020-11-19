@@ -1,12 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { retry, catchError, map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-
+import { retry, catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
-import { MessageService } from './message.service';
-
+import { HandleErrorService } from './handleError.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -17,7 +15,7 @@ class ApiBase {
   private readonly API = environment.API;
 
   constructor(private httpClient: HttpClient,
-              private messageService: MessageService) { }
+              private handleErrorService: HandleErrorService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -30,7 +28,7 @@ class ApiBase {
     return this.httpClient.get<T[]>(this.API + route, this.httpOptions)
                           .pipe(
                             retry(3),
-                            catchError(this.handleError<T[]>('get'))
+                            catchError(this.handleErrorService.handleError<T[]>(`GET ${route}`))
                           );
   }
 
@@ -38,7 +36,7 @@ class ApiBase {
     return this.httpClient.get<T>(this.API + route, this.httpOptions)
                           .pipe(
                             retry(3),
-                            catchError(this.handleError<T>('getById'))
+                            catchError(this.handleErrorService.handleError<T>(`GET_ID ${route}`))
                           );
   }
 
@@ -46,7 +44,7 @@ class ApiBase {
     return this.httpClient.put<T>(this.API + route, Entity, this.httpOptions)
                           .pipe(
                             retry(3),
-                            catchError(this.handleError<T>('update', Entity))
+                            catchError(this.handleErrorService.handleError<T>(`UPDATE ${route}`, Entity))
                           );
   }
 
@@ -54,7 +52,7 @@ class ApiBase {
     return this.httpClient.post<T>(this.API + route, Entity, this.httpOptions)
                           .pipe(
                             retry(3),
-                            catchError(this.handleError<T>('save', Entity))
+                            catchError(this.handleErrorService.handleError<T>(`SAVE ${route}`, Entity))
                           );
   }
 
@@ -62,23 +60,8 @@ class ApiBase {
     return this.httpClient.delete<T>(this.API + route, this.httpOptions)
                           .pipe(
                             retry(3),
-                            catchError(this.handleError<T>('delete'))
+                            catchError(this.handleErrorService.handleError<T>(`DELETE ${route}`))
                           );
-  }
-
-  private handleError<T>(operation = 'Operation', result?: T) {
-
-    console.log('passei aqui')
-
-    return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    this.messageService.add(`ApiBase: ${message}`);
   }
 }
 

@@ -20,13 +20,6 @@ import { RecipientListComponent } from './recipient-list/recipient-list.componen
     RecipientRoutingModule,
     MenuListModule,
     PaginationModule
-  ],
-  providers: [
-
-  ],
-  exports: [
-    RecipientListComponent,
-    RecipientEditComponent,
   ]
 })
 export class RecipientModule { }

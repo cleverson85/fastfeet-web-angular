@@ -1,33 +1,32 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Order } from '../../../models/order';
+
 import { OrderService } from '../../../services/order.service';
-import { ViewComponent } from '../../../components/view/view.component';
+
+import { RoutesApi } from './../../../shared/routesAPI.enum';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css']
 })
-export class OrderListComponent extends ViewComponent<Order> implements OnInit {
+export class OrderListComponent implements OnInit {
 
-  orders: Order[] = [];
   list: Order[] = [];
   detail = new EventEmitter<Order>();
+  orders$ = new Observable<Order[]>();
 
-  constructor(private orderService: OrderService) {
-    super(orderService);
-  }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getOrders();
   }
 
   getOrders(): void {
-    this.orderService.get<Order>('order').subscribe((orders) => {
-      this.orders = orders;
-      this.list = this.orders?.slice(0, 10);
-    });
+    this.orders$ = this.orderService.get<Order>(RoutesApi.Order);
   }
 
   orderDetail(order: Order): void {

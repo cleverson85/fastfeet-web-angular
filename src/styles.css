@@ -17,8 +17,6 @@ html, body, #app-root {
   outline: 0;
 }
 
-
-
 body {
   -webkit-font-smoothing: antialiased !important;
   background-color: cadetblue !important;
@@ -60,6 +58,18 @@ button {
 form {
   display: flex;
   justify-content: center;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+  font: 16px Roboto-Regular, sans-serif;
+  opacity: 1;
+  color: #444444;
+}
+
+input {
+  text-transform: uppercase;
 }
 
 /* Table */
